@@ -21,12 +21,12 @@ const maxPlayerHP = 100;
 let currentMonsterHP = maxMonsterHP;
 let currentPlayerHP = maxPlayerHP;
 
-function adjustHealtBar(maxLife){
-    monsterHP.max = maxLife;
-    monsterHP.value = maxLife;
-    playerHP.max = maxLife;
-    playerHP.value = maxLife;
-}
+// function adjustHealtBar(maxLife){
+//     monsterHP.max = maxLife;
+//     monsterHP.value = maxLife;
+//     playerHP.max = maxLife;
+//     playerHP.value = maxLife;
+// }
 
 function damageOnMonster(damage){
     const dealtDamage = Math.random() * damage;
@@ -40,33 +40,43 @@ function damageOnPlayer(damage){
 }
 
 function damageToBothSite(mode){
-    if(mode = "DMG_ON_MONSTER"){
+    if(mode === "DMG_ON_MONSTER"){
         const dmgMonster = damageOnMonster(ATTACK_VALUE);
         monsterHP.value -=dmgMonster;
         if(monsterHP.value <= 0){
             monsterName.textContent = "MONSTER DIED !";
         } 
     }
-    else if(mode = "DMG_ON_PLAYER"){
+    if(mode === "DMG_ON_PLAYER"){
         const dmgOnPlayer = damageOnPlayer(ATTACK_VALUE);
         playerHP.value -=dmgOnPlayer;
         if(playerHP.value <= 0){
             playerName.textContent = "YOU DIED";   
         }
-    }
+    }  
 }
 function attackOnMonster(){
     damageToBothSite("DMG_ON_MONSTER");
 }
 function attackOnPlayer(){
     damageToBothSite("DMG_ON_PLAYER"); 
+    
 }
 
 function healMonsterHP(){
-    if(monsterHP.value > 0){
+    if(monsterHP.value > 0 && monsterHP.value <=100){
         monsterHP.value += 10;  
     }   
 }
+
+const a = setInterval(attackOnMonsterInterval,1500);
+
+function attackOnMonsterInterval(){
+    if(monsterHP.value > 0){
+        attackOnPlayer();
+    }   
+}
+
 // function healMonsterInterval(){
 //     setInterval(healMonsterHP(),3000);
 // }
@@ -74,5 +84,4 @@ function healMonsterHP(){
 //     setInterval(attackOnPlayer(),2000);
 // }
 
-
-attackBtn.addEventListener("click", attackOnMonster, attackOnPlayer);
+attackBtn.addEventListener("click", attackOnMonster);
