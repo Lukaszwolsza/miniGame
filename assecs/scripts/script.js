@@ -40,48 +40,56 @@ function damageOnPlayer(damage){
 }
 
 function damageToBothSite(mode){
-    if(mode === "DMG_ON_MONSTER"){
+    if(mode === "DMG_ON_MONSTER" && playerHP.value > 0){
         const dmgMonster = damageOnMonster(ATTACK_VALUE);
-        monsterHP.value -=dmgMonster;
+        monsterHP.value -=dmgMonster; 
         if(monsterHP.value <= 0){
             monsterName.textContent = "MONSTER DIED !";
-        } 
-    }
-    if(mode === "DMG_ON_PLAYER"){
-        const dmgOnPlayer = damageOnPlayer(ATTACK_VALUE);
+            playerName.textContent = "YOU WON !";
+        }
+    }else if(mode === "DMG_ON_PLAYER"){
+        const dmgOnPlayer = damageOnPlayer(MONSTER_ATTACK_VALUE);
         playerHP.value -=dmgOnPlayer;
         if(playerHP.value <= 0){
             playerName.textContent = "YOU DIED";   
         }
-    }  
+    }else if(mode === "ULT_ON_MONSTER") // dokonczyc
 }
+
 function attackOnMonster(){
     damageToBothSite("DMG_ON_MONSTER");
 }
 function attackOnPlayer(){
-    damageToBothSite("DMG_ON_PLAYER"); 
-    
+    damageToBothSite("DMG_ON_PLAYER");
+}
+function ultimatePlayerAttack(){
+    damageToBothSite("ULT_ON_MONSTER");
 }
 
-function healMonsterHP(){
-    if(monsterHP.value > 0 && monsterHP.value <=100){
-        monsterHP.value += 10;  
-    }   
-}
-
+//set interval to make dmg on player
 const a = setInterval(attackOnMonsterInterval,1500);
-
 function attackOnMonsterInterval(){
     if(monsterHP.value > 0){
         attackOnPlayer();
     }   
 }
 
-// function healMonsterInterval(){
-//     setInterval(healMonsterHP(),3000);
-// }
-// function gettingDmgFromMonsterInterval(){
-//     setInterval(attackOnPlayer(),2000);
-// }
+//regeneration monster hp and mana 
+function monsterHPRegeneration(){
+    if(monsterHP.value < 100 && monsterMANA.value >= 15){
+        monsterHP.value += 10;
+        monsterMANA.value -= 15;
+    }else if(monsterMANA.value < 30){
+        monsterMANA += 20;
+    }
+}
+setInterval(monsterHPRegeneration,2000);
+
+
+
+
+
 
 attackBtn.addEventListener("click", attackOnMonster);
+
+
