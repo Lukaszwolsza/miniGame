@@ -14,8 +14,12 @@ const logsBtn = document.getElementById("log-btn");
 // playerName.textContent = prompt("What's your name ? :");
 
 const ATTACK_VALUE = 10;
+const MONSTER_ATTACK_VALUE = 15;
+
 const maxMonsterHP = 100;
+const maxPlayerHP = 100;
 let currentMonsterHP = maxMonsterHP;
+let currentPlayerHP = maxPlayerHP;
 
 function adjustHealtBar(maxLife){
     monsterHP.max = maxLife;
@@ -34,35 +38,41 @@ function damageOnPlayer(damage){
     playerHP.value = +playerHP.value - dealtDamage;
     return dealtDamage;
 }
+
+function damageToBothSite(mode){
+    if(mode = "DMG_ON_MONSTER"){
+        const dmgMonster = damageOnMonster(ATTACK_VALUE);
+        monsterHP.value -=dmgMonster;
+        if(monsterHP.value <= 0){
+            monsterName.textContent = "MONSTER DIED !";
+        } 
+    }
+    else if(mode = "DMG_ON_PLAYER"){
+        const dmgOnPlayer = damageOnPlayer(ATTACK_VALUE);
+        playerHP.value -=dmgOnPlayer;
+        if(playerHP.value <= 0){
+            playerName.textContent = "YOU DIED";   
+        }
+    }
+}
+function attackOnMonster(){
+    damageToBothSite("DMG_ON_MONSTER");
+}
+function attackOnPlayer(){
+    damageToBothSite("DMG_ON_PLAYER"); 
+}
+
 function healMonsterHP(){
     if(monsterHP.value > 0){
         monsterHP.value += 10;  
     }   
 }
-function attackMonster(){
-    const dmgMonster = damageOnMonster(ATTACK_VALUE);
-    monsterHP.value -=dmgMonster;
-    if(monsterHP.value <= 0){
-        monsterName.textContent = "MONSTER DIED !";
-    } 
-}
-function gettingDamageFromMonster(){
-    const dmgOnPlayer = damageOnPlayer(ATTACK_VALUE);
-    playerHP.value -=dmgOnPlayer;
-    if(playerHP.value <= 0){
-        playerName.textContent = "YOU DIED";
-        
-    }
-}
-function healPlayer(){
-    
-}
-// function losePlayerHP(){
-//     do{
-//         setInterval(gettingDamageFromMonster,2000);
-//     }while(playerHP.value != 0);   
+// function healMonsterInterval(){
+//     setInterval(healMonsterHP(),3000);
 // }
-setInterval(healMonsterHP,3000);
-setInterval(gettingDamageFromMonster,2000);
+// function gettingDmgFromMonsterInterval(){
+//     setInterval(attackOnPlayer(),2000);
+// }
 
-attackBtn.addEventListener("click", attackMonster);
+
+attackBtn.addEventListener("click", attackOnMonster, attackOnPlayer);
