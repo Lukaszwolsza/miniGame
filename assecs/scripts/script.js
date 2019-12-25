@@ -11,7 +11,7 @@ const ultimateBtn = document.getElementById("ult-btn");
 const healBtn = document.getElementById("heal-btn");
 const logsBtn = document.getElementById("log-btn");
 
-// playerName.textContent = prompt("What's your name ? :");
+playerName.textContent = prompt("What's your name ? :");
 
 const ATTACK_VALUE = 10;
 const MONSTER_ATTACK_VALUE = 15;
@@ -53,7 +53,7 @@ function damageToBothSite(mode){
         if(playerHP.value <= 0){
             playerName.textContent = "YOU DIED";   
         }
-    }else if(mode === "ULT_ON_MONSTER") // dokonczyc
+    }else if(mode === "ULT_ON_MONSTER"){} // dokonczyc
 }
 
 function attackOnMonster(){
@@ -76,7 +76,7 @@ function attackOnMonsterInterval(){
 
 //regeneration monster hp and mana 
 function monsterHPRegeneration(){
-    if(monsterHP.value < 100 && monsterMANA.value >= 15){
+    if(monsterHP.value < 100 && monsterMANA.value >= 15 && monsterHP.value > 0){
         monsterHP.value += 10;
         monsterMANA.value -= 15;
     }else if(monsterMANA.value < 30){
