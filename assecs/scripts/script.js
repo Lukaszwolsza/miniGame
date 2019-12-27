@@ -15,6 +15,7 @@ playerName.textContent = prompt("What's your name ? :");
 
 const ATTACK_VALUE = 10;
 const MONSTER_ATTACK_VALUE = 15;
+const ULT_ATTACK_VALUE = 50;
 
 const maxMonsterHP = 100;
 const maxPlayerHP = 100;
@@ -53,7 +54,18 @@ function damageToBothSite(mode){
         if(playerHP.value <= 0){
             playerName.textContent = "YOU DIED";   
         }
-    }else if(mode === "ULT_ON_MONSTER"){} // dokonczyc
+    }else if(mode === "ULT_ON_MONSTER"){
+        if(playerMANA.value > 50){
+            const dmgMonster = damageOnMonster(ULT_ATTACK_VALUE);
+            monsterHP.value -=dmgMonster;
+            playerMANA.value -= 50;
+            if(monsterHP.value <= 0){
+                monsterName.textContent = "MONSTER DIED !";
+                playerName.textContent = "YOU WON !";
+            }
+        }
+        
+    }
 }
 
 function attackOnMonster(){
@@ -77,19 +89,24 @@ function attackOnMonsterInterval(){
 //regeneration monster hp and mana 
 function monsterHPRegeneration(){
     if(monsterHP.value < 100 && monsterMANA.value >= 15 && monsterHP.value > 0){
-        monsterHP.value += 10;
+        monsterHP.value += 5;
         monsterMANA.value -= 15;
     }else if(monsterMANA.value < 30){
         monsterMANA += 20;
     }
 }
+function playerManaRegeneration(){
+    if(playerMANA.value < 60 && playerHP.value > 0){
+        playerMANA.value += 20;
+    }
+}
 setInterval(monsterHPRegeneration,2000);
-
+setInterval(playerManaRegeneration,2000);
 
 
 
 
 
 attackBtn.addEventListener("click", attackOnMonster);
-
+ultimateBtn.addEventListener("click", ultimatePlayerAttack);
 
