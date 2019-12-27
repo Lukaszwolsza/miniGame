@@ -12,7 +12,7 @@ const healBtn = document.getElementById("heal-btn");
 const logsBtn = document.getElementById("log-btn");
 
 playerName.textContent = prompt("What's your name ? :");
-
+confirm("Are you want to start a game ? Press button");
 const ATTACK_VALUE = 10;
 const MONSTER_ATTACK_VALUE = 15;
 const ULT_ATTACK_VALUE = 50;
@@ -96,8 +96,8 @@ function monsterHPRegeneration(){
     }
 }
 function playerManaRegeneration(){
-    if(playerMANA.value < 60 && playerHP.value > 0){
-        playerMANA.value += 20;
+    if(playerMANA.value < 100 && playerHP.value > 0 && monsterHP.value){
+        playerMANA.value += 10;
     }
 }
 setInterval(monsterHPRegeneration,2000);

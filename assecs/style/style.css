@@ -85,3 +85,8 @@ progress{
     font-size: 170%;
     cursor: pointer;
 }
+#footer{
+    position: absolute;
+    bottom:0;
+    color:white;
+}
