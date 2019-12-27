@@ -22,6 +22,7 @@ const maxPlayerHP = 100;
 let currentMonsterHP = maxMonsterHP;
 let currentPlayerHP = maxPlayerHP;
 
+
 // function adjustHealtBar(maxLife){
 //     monsterHP.max = maxLife;
 //     monsterHP.value = maxLife;
