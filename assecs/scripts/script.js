@@ -101,13 +101,18 @@ function playerManaRegeneration(){
         playerMANA.value += 10;
     }
 }
+function healPlayer(){
+    if(playerHP.value < 100 && playerMANA.value > 20){
+        playerHP.value += 30;
+        playerMANA.value -=30;
+    }
+}
+
+
 setInterval(monsterHPRegeneration,2000);
 setInterval(playerManaRegeneration,2000);
 
 
-
-
-
 attackBtn.addEventListener("click", attackOnMonster);
 ultimateBtn.addEventListener("click", ultimatePlayerAttack);
-
+healBtn.addEventListener("click",healPlayer);
