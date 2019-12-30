@@ -102,7 +102,7 @@ function playerManaRegeneration(){
     }
 }
 function healPlayer(){
-    if(playerHP.value < 100 && playerMANA.value > 20){
+    if(playerHP.value < 100 && playerMANA.value > 20 && monsterHP.value > 0){
         playerHP.value += 30;
         playerMANA.value -=30;
     }
