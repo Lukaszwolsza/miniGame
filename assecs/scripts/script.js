@@ -21,6 +21,7 @@ const maxMonsterHP = 100;
 const maxPlayerHP = 100;
 let currentMonsterHP = maxMonsterHP;
 let currentPlayerHP = maxPlayerHP;
+let startNewGame = true;
 
 
 // function adjustHealtBar(maxLife){
@@ -55,11 +56,12 @@ function damageToBothSite(mode){
         if(playerHP.value <= 0){
             playerName.textContent = "YOU DIED";   
         }
-    }else if(mode === "ULT_ON_MONSTER"){
+    }else if(mode === "ULT_ON_MONSTER" && playerHP.value > 0){
         if(playerMANA.value > 50){
             const dmgMonster = damageOnMonster(ULT_ATTACK_VALUE);
             monsterHP.value -=dmgMonster;
             playerMANA.value -= 50;
+            
             if(monsterHP.value <= 0){
                 monsterName.textContent = "MONSTER DIED !";
                 playerName.textContent = "YOU WON !";
@@ -67,6 +69,7 @@ function damageToBothSite(mode){
         }
         
     }
+    resetGame();
 }
 
 function attackOnMonster(){
@@ -116,3 +119,16 @@ setInterval(playerManaRegeneration,2000);
 attackBtn.addEventListener("click", attackOnMonster);
 ultimateBtn.addEventListener("click", ultimatePlayerAttack);
 healBtn.addEventListener("click",healPlayer);
+
+function resetGame(){
+    if(playerHP.value <= 0 || monsterHP.value <= 0){
+        const doContinued = prompt("Do you want to contiune ?");
+        if(doContinued)
+        {
+            monsterHP.value = 100;
+            monsterMANA.value = 100;
+            playerHP.value = 100;
+            playerMANA.value = 100;
+        }
+    }
+}
